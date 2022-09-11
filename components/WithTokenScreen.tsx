@@ -141,7 +141,8 @@ export const WithTokenScreen = () => {
 
                 {/* show them... without pagination */}
                 {currentActive === 0 ? <AllPasswords
-                    openDialogBox={openDialogBox} /> : <AllSecureNotes />}
+                    openDialogBox={openDialogBox} /> : <AllSecureNotes
+                    openDialogBox={openDialogBox} />}
 
 
 
