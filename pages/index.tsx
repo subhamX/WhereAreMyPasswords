@@ -66,7 +66,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>WhereAreMyPasswords</title>
+        <title>WhereAreMyPasswords?</title>
         <meta name="description" content="A browser based fully offline progressive web app to store your passwords and secure notes!" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />

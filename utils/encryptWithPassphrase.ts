@@ -1,9 +1,10 @@
+import CryptoJS from 'crypto-js'
+import { DecryptedPayload } from './decryptWithPassphrase'
 
 
-
-export const encryptWithPassphrase =(passphrase:string, payload: any) => {
+export const encryptWithPassphrase =(passphrase:string, payload: DecryptedPayload) => {
     const stringifiedPayload=JSON.stringify(payload)
-    const base64=Buffer.from(stringifiedPayload).toString('base64')
-    const encryptedString=base64; // TODO: encrypt the base64 string with passphrase
+    const encryptedString=CryptoJS.AES.encrypt(stringifiedPayload, passphrase).toString()
+    
     return encryptedString;
 }

@@ -37,7 +37,7 @@ export const ImportVaultDialogBox = ({
             toast.success(`Added passwords and secure notes after carefully merging them! 🎉🚀`)
             setIsOpen(false)
         } catch (err: any) {
-            toast.error(err.message)
+            toast.error('Something went wrong! Are you sure you entered the correct passphrase? 🧐')
         }
 
     }

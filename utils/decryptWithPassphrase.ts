@@ -1,11 +1,13 @@
+import CryptoJS from 'crypto-js'
+import { PasswordInstance, SecureNoteInstance } from '../components/AllPasswords';
 
-
-
-export const decryptWithPassphrase =(passphrase:string, payload: any) => {
-    const decryptedPayload=payload; // TODO: decrypt the payload with passphrase
-    const jsonString=Buffer.from(decryptedPayload, 'base64').toString()
-
-    const deserializedPayload=JSON.parse(jsonString)
+export type DecryptedPayload = {
+    passwords: PasswordInstance[],
+    secureNotes: SecureNoteInstance[]
+}
+export const decryptWithPassphrase =(passphrase:string, payload: any): DecryptedPayload => {
+    const decryptedPayload=CryptoJS.AES.decrypt(payload, passphrase).toString(CryptoJS.enc.Utf8);
+    const deserializedPayload=JSON.parse(decryptedPayload)
 
     return deserializedPayload;
 }
