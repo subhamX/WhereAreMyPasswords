@@ -81,7 +81,7 @@ const Home: NextPage = () => {
         setCurrentFilterText={setCurrentFilterText}
       />
 
-      {token ? <WithTokenScreen /> : <WithoutTokenScreen handleSubmit={handleSubmit} isNewUser={tokenSHA === ""} />}
+      {token ? <WithTokenScreen currentFilterQuery={currentFilterText} /> : <WithoutTokenScreen handleSubmit={handleSubmit} isNewUser={tokenSHA === ""} />}
 
     </div>
   )

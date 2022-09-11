@@ -11,7 +11,14 @@ import { ImportVaultDialogBox } from "./ImportVaultDialogBox"
 
 
 
-export const WithTokenScreen = () => {
+
+export const WithTokenScreen = (
+    {
+        currentFilterQuery
+    }: {
+        currentFilterQuery: string
+    }
+) => {
     const [currentActive, setCurrentActive] = useState(0)
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const [isExportVaultDialogOpen, setIsExportVaultDialogOpen] = useState(false)
@@ -136,7 +143,9 @@ export const WithTokenScreen = () => {
 
                 {/* show them... without pagination */}
                 {currentActive === 0 ? <AllPasswords
+                    currentFilterQuery={currentFilterQuery}
                     openDialogBox={openDialogBox} /> : <AllSecureNotes
+                    currentFilterQuery={currentFilterQuery}
                     openDialogBox={openDialogBox} />}
 
             </div>

@@ -4,7 +4,6 @@ import { Dispatch } from "react"
 
 export const Navbar = (
     {
-        currentFilterText,
         setCurrentFilterText,
         showSearchBar = false,
     }

@@ -22,24 +22,30 @@ export type SecureNoteInstance = {
 
 export const AllPasswords = (
     {
-        openDialogBox
+        openDialogBox,
+        currentFilterQuery
     }: {
-        openDialogBox: (instanceType: 'password' | 'secure-note', data: SecureNoteInstance | PasswordInstance) => void
+        openDialogBox: (instanceType: 'password' | 'secure-note', data: SecureNoteInstance | PasswordInstance) => void,
+        currentFilterQuery: string
     }) => {
-    const { passwords, deletePassword } = useOfflineCacheService()
+    const { passwords: rawPasswords, deletePassword } = useOfflineCacheService()
     const [showPasswords, setShowPasswords] = useState([] as string[])
 
     const [shareCredentialDialogBoxIsOpen, setShareCredentialDialogBoxIsOpen] = useState(false)
     const [passwordDataToBeShared, setPasswordDataToBeShared] = useState({} as PasswordInstance)
 
     // const passwords=rawPasswords.sort((a,b)=>new Date(b.lastUpdated).getTime()-new Date(a.lastUpdated).getTime())
-
+    const passwords = rawPasswords.filter((password) => {
+        return password.siteUrl.toLowerCase().includes(currentFilterQuery.toLowerCase()) ||
+            password.usernameOrEmail.toLowerCase().includes(currentFilterQuery.toLowerCase())
+    })
+    
     return (
         <div className="font-sans">
             {passwords.length == 0 && <div className="alert alert-warning shadow-lg">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                    <div>No passwords in the vault!</div>
+                    { rawPasswords.length===0 ? <div>No passwords in the vault!</div>: <div>No passwords found for the specified query!</div>}
                 </div>
             </div>}
 
