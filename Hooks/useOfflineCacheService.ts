@@ -15,6 +15,10 @@ interface OfflineCacheState {
     deletePassword: (uid: string) => void,
     deleteSecureNote: (uid: string) => void,
     setToken: (token: string) => void,
+    mergeVault: (newVaultData: {
+      passwords: PasswordInstance[],
+      secureNotes: SecureNoteInstance[]
+    }) => void
 }
 
 export const useOfflineCacheService = create<OfflineCacheState>()(
@@ -31,6 +35,18 @@ export const useOfflineCacheService = create<OfflineCacheState>()(
         deleteSecureNote: (uid: string) => set((state) => ({ secureNotes: state.secureNotes.filter((secureNote) => secureNote.uid !== uid) })),
         editPassword: (password: PasswordInstance) => set((state) => ({ passwords: state.passwords.map((p) => p.uid === password.uid ? password : p) })),
         editSecureNote: (secureNote: SecureNoteInstance) => set((state) => ({ secureNotes: state.secureNotes.map((s) => s.uid === secureNote.uid ? secureNote : s) })),
+        mergeVault: (newVaultData) => set((state) => ({
+          passwords: [
+            // if not present in newVaultData, keep it
+            ...state.passwords.filter((password) => !newVaultData.passwords.find((p) => p.uid === password.uid)),
+            ...newVaultData.passwords,
+          ],
+          secureNotes: [
+            // if not present in newVaultData, keep it
+            ...state.secureNotes.filter((password) => !newVaultData.secureNotes.find((p) => p.uid === password.uid)),
+            ...newVaultData.secureNotes,
+          ],
+        }))
       }),
       {
         name: 'offline-cache-storage',

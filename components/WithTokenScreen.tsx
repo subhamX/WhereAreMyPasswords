@@ -7,6 +7,7 @@ import { PasswordIcon } from "./icons/PasswordIcon"
 import { SecureNoteIcon } from "./icons/SecureNoteIcon"
 import { MainOptionTile } from "./MainOptionTile"
 import { ExportVaultDialogBox } from "./ExportVaultDialogBox"
+import { ImportVaultDialogBox } from "./ImportVaultDialogBox"
 
 
 
@@ -14,6 +15,8 @@ export const WithTokenScreen = () => {
     const [currentActive, setCurrentActive] = useState(0)
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const [isExportVaultDialogOpen, setIsExportVaultDialogOpen] = useState(false)
+    const [isImportVaultDialogOpen, setIsImportVaultDialogOpen] = useState(false)
+
 
     const [currentNewItemInstance, setCurrentNewItemInstance] = useState<'password' | 'secure-note'>('password')
     const [currentInitialDataToCreateNewItemInstance, setCurrentInitialDataToCreateNewItemInstance] = useState<{} | SecureNoteInstance | PasswordInstance>({})
@@ -92,22 +95,11 @@ export const WithTokenScreen = () => {
                             {/* load everything, and dump */}
                             {/* .whereIsMyPasswordDB */}
                             <li onClick={() => setIsExportVaultDialogOpen(true)}><a>Export Vault</a></li>
-                            <li><a>Import Vault</a></li>
+                            <li onClick={() => setIsImportVaultDialogOpen(true)}><a>Import Vault</a></li>
                         </ul>
                     </div>
 
 
-
-
-
-
-
-
-                    {/* select a file */}
-                    {/* enter the passphrase */}
-                    {/* and cool */}
-                    {/* .whereIsMyPasswordDB */}
-                    {/* <button className="btn font-black text-lg btn-primary m-1">Import Vault</button> */}
 
 
                     {/* on every secure note and password, there will be a button to share with someone */}
@@ -161,6 +153,11 @@ export const WithTokenScreen = () => {
             <ExportVaultDialogBox
                 isOpen={isExportVaultDialogOpen}
                 setIsOpen={setIsExportVaultDialogOpen}
+            />
+
+            <ImportVaultDialogBox
+                isOpen={isImportVaultDialogOpen}
+                setIsOpen={setIsImportVaultDialogOpen}
             />
 
         </>
