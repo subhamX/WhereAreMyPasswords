@@ -46,7 +46,7 @@ boat	begin	lawn`
         },
     ]
 }
-export function DialogBox({
+export function AddNewItemDialogBox({
     newItemAddInstanceType,
     isOpen,
     setIsOpen,

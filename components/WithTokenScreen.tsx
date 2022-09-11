@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useOfflineCacheService } from "../Hooks/useOfflineCacheService"
 import { AllPasswords, PasswordInstance, SecureNoteInstance } from "./AllPasswords"
 import { AllSecureNotes } from "./AllSecureNotes"
-import { DialogBox } from "./DialogBox"
+import { AddNewItemDialogBox } from "./AddNewItemDialogBox"
 import { PasswordIcon } from "./icons/PasswordIcon"
 import { SecureNoteIcon } from "./icons/SecureNoteIcon"
 import { MainOptionTile } from "./MainOptionTile"
@@ -79,7 +79,7 @@ export const WithTokenScreen = () => {
 
 
 
-                    <div className="dropdown">
+                    <div className="dropdown dropdown-end">
 
                         <label tabIndex={0} className="btn font-black text-lg btn-primary btn-outline m-1">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
@@ -144,14 +144,10 @@ export const WithTokenScreen = () => {
                     openDialogBox={openDialogBox} /> : <AllSecureNotes
                     openDialogBox={openDialogBox} />}
 
-
-
-
-
             </div>
 
 
-            <DialogBox
+            <AddNewItemDialogBox
                 initialData={currentInitialDataToCreateNewItemInstance}
                 isOpen={isDialogOpen}
                 newItemAddInstanceType={currentNewItemInstance}
