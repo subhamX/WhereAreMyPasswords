@@ -1,7 +1,6 @@
 import create from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 import { PasswordInstance, SecureNoteInstance } from '../components/AllPasswords'
-import bcrypt from 'bcryptjs'
 import { encryptWithPassphrase } from '../utils/encryptWithPassphrase'
 import { DecryptedPayload, decryptWithPassphrase } from '../utils/decryptWithPassphrase'
 

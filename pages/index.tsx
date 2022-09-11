@@ -6,7 +6,6 @@ import { MainOptionTile } from '../components/MainOptionTile'
 import { Navbar } from '../components/Navbar'
 import { WithoutTokenScreen } from '../components/WithoutTokenScreen'
 import { WithTokenScreen } from '../components/WithTokenScreen'
-import bcrypt from 'bcryptjs'
 import { KEY_MAIN_PASSWORD_SHA } from '../config/keys'
 import { toast } from 'react-toastify';
 import { useOfflineCacheService } from '../Hooks/useOfflineCacheService'
