@@ -8,6 +8,7 @@ import { SecureNoteIcon } from "./icons/SecureNoteIcon"
 import { MainOptionTile } from "./MainOptionTile"
 import { ExportVaultDialogBox } from "./ExportVaultDialogBox"
 import { ImportVaultDialogBox } from "./ImportVaultDialogBox"
+import { toast } from "react-toastify"
 
 
 
@@ -74,6 +75,7 @@ export const WithTokenScreen = (
                 addSecureNote(payload)
             }
         }
+        toast.success('Credentials added successfully! 🎉')
         setIsDialogOpen(false)
     }
 

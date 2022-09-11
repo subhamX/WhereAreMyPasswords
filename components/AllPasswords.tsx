@@ -1,8 +1,9 @@
 import { useOfflineCacheService } from "../Hooks/useOfflineCacheService"
-import { EyeIcon, EyeSlashIcon, PencilIcon, PencilSquareIcon, ShareIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { ClipboardDocumentCheckIcon, EyeIcon, EyeSlashIcon, PencilIcon, PencilSquareIcon, ShareIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { useState } from "react"
 import { toast } from "react-toastify"
 import { ShareCredentialDialogBox } from "./ShareCredentialDialogBox"
+import { copyTextToClipboard } from "../utils/copyTextToClipboard"
 
 
 export type PasswordInstance = {
@@ -39,13 +40,13 @@ export const AllPasswords = (
         return password.siteUrl.toLowerCase().includes(currentFilterQuery.toLowerCase()) ||
             password.usernameOrEmail.toLowerCase().includes(currentFilterQuery.toLowerCase())
     })
-    
+
     return (
         <div className="font-sans">
             {passwords.length == 0 && <div className="alert alert-warning shadow-lg">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                    { rawPasswords.length===0 ? <div>No passwords in the vault!</div>: <div>No passwords found for the specified query!</div>}
+                    {rawPasswords.length === 0 ? <div>No passwords in the vault!</div> : <div>No passwords found for the specified query!</div>}
                 </div>
             </div>}
 
@@ -60,13 +61,18 @@ export const AllPasswords = (
                                 <span>
                                     Username or Email
                                 </span>
-                                <span>
-                                    {passwordInstance.usernameOrEmail}
+                                <span className="grid grid-cols-12">
+                                    <span className="col-span-10 ml-auto">{passwordInstance.usernameOrEmail}</span>
+                                    <span onClick={() => {
+                                        copyTextToClipboard(passwordInstance.password)
+                                    }}
+                                        className="btn btn-circle btn-info border btn-xs col-span-1 col-start-12"><ClipboardDocumentCheckIcon className="w-4" />
+                                    </span>
                                 </span>
                             </div>
 
                             <div className="space-x-2 flex justify-between">
-                                <span>
+                                <span className="font-bold">
                                     Site URL:
                                 </span>
                                 <span>
@@ -75,11 +81,13 @@ export const AllPasswords = (
                             </div>
 
                             <div className="space-x-2 flex justify-between">
-                                <span>
+                                <span className="font-bold">
                                     Password:
                                 </span>
-                                <span className="grid grid-cols-10 space-x-2 items-center">
-                                    <span className="col-span-9 ml-auto">{showPassword ? passwordInstance.password : '***********'}</span>
+                                <span className="grid grid-cols-11 space-x-2 items-center">
+                                    <span onClick={() => {
+                                        copyTextToClipboard(passwordInstance.password)
+                                    }} className="cursor-copy bg-warning px-4 w-full pb-2 pt-2 col-span-9 ml-auto">{showPassword ? passwordInstance.password : '***********'}</span>
                                     <span onClick={() => {
                                         if (showPassword) {
                                             // remove it
@@ -90,12 +98,17 @@ export const AllPasswords = (
                                         }
                                     }}
                                         className="btn btn-circle btn-info border btn-xs col-span-1">{showPassword ? <EyeSlashIcon className="w-4" /> : <EyeIcon className="w-4" />}</span>
+                                    <span onClick={() => {
+                                        copyTextToClipboard(passwordInstance.password)
+                                    }}
+                                        className="btn btn-circle btn-info border btn-xs col-span-1"><ClipboardDocumentCheckIcon className="w-4" />
+                                    </span>
                                 </span>
                             </div>
 
 
                             <div className="text-gray-600 flex justify-between space-x-2">
-                                <span>
+                                <span className="font-bold">
                                     Last Updated At:
                                 </span>
                                 <span>

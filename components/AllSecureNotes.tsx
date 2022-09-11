@@ -1,7 +1,8 @@
-import { EyeIcon, EyeSlashIcon, PencilSquareIcon, ShareIcon, TrashIcon } from "@heroicons/react/24/outline"
+import { ClipboardDocumentCheckIcon, EyeIcon, EyeSlashIcon, PencilSquareIcon, ShareIcon, TrashIcon } from "@heroicons/react/24/outline"
 import { useState } from "react"
 import { toast } from "react-toastify"
 import { useOfflineCacheService } from "../Hooks/useOfflineCacheService"
+import { copyTextToClipboard } from "../utils/copyTextToClipboard"
 import { PasswordInstance, SecureNoteInstance } from "./AllPasswords"
 import { ShareCredentialDialogBox } from "./ShareCredentialDialogBox"
 
@@ -32,7 +33,7 @@ export const AllSecureNotes = (
             {secureNotes.length == 0 && <div className="alert alert-warning shadow-lg">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                    { rawSecureNotes.length===0 ? <div>No secure notes in the vault!</div>: <div>No secure notes found for the specified query!</div>}
+                    {rawSecureNotes.length === 0 ? <div>No secure notes in the vault!</div> : <div>No secure notes found for the specified query!</div>}
                 </div>
             </div>}
 
@@ -54,10 +55,10 @@ export const AllSecureNotes = (
 
 
                             <div className="gap-1 flex flex-col justify-between">
-                                <span>
+                                <span className="font-bold mb-2 text-lg">
                                     Content:
                                 </span>
-                                <span className="grid grid-cols-10 w-full space-x-2 items-center">
+                                <span className="grid grid-cols-11 w-full space-x-2 items-center">
                                     <textarea
                                         value={showSecureNote ? secureNoteInstance.content : '***********'}
                                         className="resize-none col-span-9 w-full ml-auto textarea bg-amber-300 textarea-bordered"
@@ -73,15 +74,19 @@ export const AllSecureNotes = (
                                             setShowSecureNotes([...showSecureNotes, secureNoteInstance.uid])
                                         }
                                     }}
-                                        className="btn btn-circle btn-info border btn-sm col-span-1">{showSecureNote ? <EyeSlashIcon className="w-7" /> : <EyeIcon className="w-7" />}</span>
+                                        className="btn btn-circle btn-info border btn-sm justify-self-end">{showSecureNote ? <EyeSlashIcon className="w-7" /> : <EyeIcon className="w-7" />}</span>
 
-
+                                    <span onClick={() => {
+                                        copyTextToClipboard(secureNoteInstance.content)
+                                    }}
+                                        className="btn btn-circle btn-info border btn-sm col-span-1"><ClipboardDocumentCheckIcon className="w-7" />
+                                    </span>
                                 </span>
                             </div>
 
 
                             <div className="text-gray-600 mt-1 flex justify-between space-x-2">
-                                <span>
+                                <span className="font-bold">
                                     Last Updated At:
                                 </span>
                                 <span>
@@ -106,6 +111,8 @@ export const AllSecureNotes = (
                                         openDialogBox('secure-note', secureNoteInstance)
                                     }}
                                     className="btn btn-sm space-x-2"><PencilSquareIcon className="w-5" /> <span>Edit</span></div>
+
+
                             </div>
                         </div>
 

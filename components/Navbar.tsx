@@ -21,7 +21,7 @@ export const Navbar = (
             {showSearchBar &&
                 <div className="w-full max-w-xl">
                         {/* Search icon */}
-                        <input onChange={(e) => setCurrentFilterText(e.target.value)} type="text" placeholder="Search the secure vault" className="w-full input input-bordered" />
+                        <input onChange={(e) => setCurrentFilterText(e.target.value)} type="text" placeholder="Search the secure vault" className="w-full input input-bordered font-bold placeholder:text-gray-700 input-accent text-gray-700" />
                 </div>}
         </div>
     )
