@@ -37,3 +37,10 @@ next-env.d.ts
 
 
 .env
+
+**/public/workbox-*.js
+**/public/sw.js
+**/public/sw.js.map
+**/public/fallback-*.js
+**/public/workbox-*.js.map
+
