@@ -9,9 +9,17 @@ import { WithTokenScreen } from '../components/WithTokenScreen'
 import bcrypt from 'bcryptjs'
 import { KEY_MAIN_PASSWORD_SHA } from '../config/keys'
 import { toast } from 'react-toastify';
+import { useOfflineCacheService } from '../Hooks/useOfflineCacheService'
+
+
+export async function getStaticProps(context: any) {
+  return {
+    props: {}, // will be passed to the page component as props
+  }
+}
 
 const Home: NextPage = () => {
-  const [token, setToken] = useState("");
+  const {token, setToken}=useOfflineCacheService()
   const [currentFilterText, setCurrentFilterText] = useState("");
   const [tokenSHA, setTokenSHA] = useState("");
 
@@ -54,7 +62,6 @@ const Home: NextPage = () => {
     }
     toast.success("successfully unlocked the vault. 🎉")
   }
-
 
   return (
     <div>

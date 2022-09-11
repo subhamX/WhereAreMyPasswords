@@ -2,7 +2,12 @@ import { useState } from "react";
 
 
 
-export const WithoutTokenScreen = ({ isNewUser, handleSubmit}: {isNewUser: boolean, handleSubmit: (potentialMainPassword: string) => void }) => {
+export const WithoutTokenScreen = ({
+    isNewUser, handleSubmit
+}: {
+    isNewUser: boolean,
+    handleSubmit: (potentialMainPassword: string) => void
+}) => {
     const [potentialMainPassword, setPotentialMainPassword] = useState("");
 
 
@@ -23,7 +28,7 @@ export const WithoutTokenScreen = ({ isNewUser, handleSubmit}: {isNewUser: boole
             </div>
 
 
-            <form onSubmit={(e) => {e.preventDefault(); handleSubmit(potentialMainPassword)}}>
+            <form onSubmit={(e) => { e.preventDefault(); handleSubmit(potentialMainPassword) }}>
                 <input onChange={e => setPotentialMainPassword(e.target.value)} required type="text" placeholder="Enter the secure master password 🔐" className="mt-4 input input-bordered input-info w-full" />
                 <button type="submit" className="btn mt-3 mb-10">Take me to the vault 🔒</button>
             </form>
@@ -32,7 +37,7 @@ export const WithoutTokenScreen = ({ isNewUser, handleSubmit}: {isNewUser: boole
                 <li>We are here to help you find your passwords. 💪</li>
                 <li>We are completely browser based 🌐. And we never store either your encrypted passwords, or encryption keys on our servers! Everything stays at your browser always!</li>
                 <li>You can easily share the encrypted secret note, or password anyone via email 📩.</li>
-                    {/* {isNewUser && <div>Incase you have a backup, and want to import your vault. Please ensure that the passphrase matches with that of backup!</div>} */}
+                {/* {isNewUser && <div>Incase you have a backup, and want to import your vault. Please ensure that the passphrase matches with that of backup!</div>} */}
 
             </div>
         </div>
