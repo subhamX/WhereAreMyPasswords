@@ -3,7 +3,7 @@ import { devtools, persist } from 'zustand/middleware'
 import { PasswordInstance, SecureNoteInstance } from '../components/AllPasswords'
 import bcrypt from 'bcryptjs'
 import { encryptWithPassphrase } from '../utils/encryptWithPassphrase'
-import { decryptWithPassphrase } from '../utils/decryptWithPassphrase'
+import { DecryptedPayload, decryptWithPassphrase } from '../utils/decryptWithPassphrase'
 
 interface OfflineCacheState {
   token: string, // not stored offline
@@ -17,10 +17,7 @@ interface OfflineCacheState {
   deletePassword: (uid: string) => void,
   deleteSecureNote: (uid: string) => void,
   setToken: (token: string) => void,
-  mergeVault: (newVaultData: {
-    passwords: PasswordInstance[],
-    secureNotes: SecureNoteInstance[]
-  }) => void,
+  mergeVault: (newVaultData: DecryptedPayload) => void,
 }
 
 export const useOfflineCacheService = create<OfflineCacheState>()(

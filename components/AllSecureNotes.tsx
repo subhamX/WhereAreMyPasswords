@@ -3,6 +3,7 @@ import { useState } from "react"
 import { toast } from "react-toastify"
 import { useOfflineCacheService } from "../Hooks/useOfflineCacheService"
 import { PasswordInstance, SecureNoteInstance } from "./AllPasswords"
+import { ShareCredentialDialogBox } from "./ShareCredentialDialogBox"
 
 
 
@@ -14,7 +15,8 @@ export const AllSecureNotes = (
     }) => {
     const { secureNotes, deleteSecureNote } = useOfflineCacheService()
     const [showSecureNotes, setShowSecureNotes] = useState([] as string[])
-
+    const [shareCredentialDialogBoxIsOpen, setShareCredentialDialogBoxIsOpen] = useState(false)
+    const [secureNoteDataToBeShared, setSecureNoteDataToBeShared] = useState({} as SecureNoteInstance)
 
     return (
         <div>
@@ -79,7 +81,9 @@ export const AllSecureNotes = (
                             </div>
 
                             <div className="flex gap-3 mt-4 justify-end">
-                                <div className="btn btn-sm space-x-2"><ShareIcon className="w-5" /><span>Share</span></div>
+                                <div
+                                    onClick={() => { setSecureNoteDataToBeShared(secureNoteInstance), setShareCredentialDialogBoxIsOpen(true) }}
+                                    className="btn btn-sm space-x-2"><ShareIcon className="w-5" /><span>Share</span></div>
                                 <div
                                     onClick={() => {
                                         if (confirm('Are you sure to delete this secure note instance?')) {
@@ -100,7 +104,12 @@ export const AllSecureNotes = (
                 )
             })}
 
-
+            <ShareCredentialDialogBox
+                isOpen={shareCredentialDialogBoxIsOpen}
+                setIsOpen={setShareCredentialDialogBoxIsOpen}
+                passwords={[]}
+                secureNotes={[secureNoteDataToBeShared]}
+            />
 
         </div>
     )

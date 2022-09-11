@@ -1,7 +1,8 @@
 import { useOfflineCacheService } from "../Hooks/useOfflineCacheService"
-import {EyeIcon, EyeSlashIcon, PencilIcon, PencilSquareIcon, ShareIcon, TrashIcon} from '@heroicons/react/24/outline'
+import { EyeIcon, EyeSlashIcon, PencilIcon, PencilSquareIcon, ShareIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { useState } from "react"
 import { toast } from "react-toastify"
+import { ShareCredentialDialogBox } from "./ShareCredentialDialogBox"
 
 
 export type PasswordInstance = {
@@ -23,10 +24,13 @@ export const AllPasswords = (
     {
         openDialogBox
     }: {
-    openDialogBox: (instanceType: 'password' | 'secure-note', data: SecureNoteInstance | PasswordInstance) => void
-}) => {
+        openDialogBox: (instanceType: 'password' | 'secure-note', data: SecureNoteInstance | PasswordInstance) => void
+    }) => {
     const { passwords, deletePassword } = useOfflineCacheService()
     const [showPasswords, setShowPasswords] = useState([] as string[])
+
+    const [shareCredentialDialogBoxIsOpen, setShareCredentialDialogBoxIsOpen] = useState(false)
+    const [passwordDataToBeShared, setPasswordDataToBeShared] = useState({} as PasswordInstance)
 
     // const passwords=rawPasswords.sort((a,b)=>new Date(b.lastUpdated).getTime()-new Date(a.lastUpdated).getTime())
 
@@ -40,7 +44,7 @@ export const AllPasswords = (
             </div>}
 
             {passwords.map((passwordInstance) => {
-                const showPassword=showPasswords.includes(passwordInstance.uid)
+                const showPassword = showPasswords.includes(passwordInstance.uid)
                 return (
                     <div key={passwordInstance.uid} className='text-sm card bg-primary my-4 w-full shadow-xl'>
 
@@ -69,17 +73,17 @@ export const AllPasswords = (
                                     Password:
                                 </span>
                                 <span className="grid grid-cols-10 space-x-2 items-center">
-                                    <span className="col-span-9 ml-auto">{showPassword? passwordInstance.password: '***********'}</span>
+                                    <span className="col-span-9 ml-auto">{showPassword ? passwordInstance.password : '***********'}</span>
                                     <span onClick={() => {
-                                        if(showPassword){
+                                        if (showPassword) {
                                             // remove it
-                                            setShowPasswords(showPasswords.filter((uid)=>uid!==passwordInstance.uid))
-                                        }else{
+                                            setShowPasswords(showPasswords.filter((uid) => uid !== passwordInstance.uid))
+                                        } else {
                                             // add it
                                             setShowPasswords([...showPasswords, passwordInstance.uid])
                                         }
-                                    }} 
-                                    className="btn btn-circle btn-info border btn-xs col-span-1">{showPassword?<EyeSlashIcon className="w-4"/> : <EyeIcon className="w-4"/>}</span>
+                                    }}
+                                        className="btn btn-circle btn-info border btn-xs col-span-1">{showPassword ? <EyeSlashIcon className="w-4" /> : <EyeIcon className="w-4" />}</span>
                                 </span>
                             </div>
 
@@ -94,20 +98,22 @@ export const AllPasswords = (
                             </div>
 
                             <div className="flex gap-3 mt-4 justify-end">
-                                <div className="btn btn-sm space-x-2"><ShareIcon className="w-5"/><span>Share</span></div>
                                 <div
-                                onClick={() => {
-                                    if(confirm('Are you sure to delete this password instance?')){
-                                        deletePassword(passwordInstance.uid)
-                                        toast.success('Password deleted successfully 🎉')
-                                    }
-                                }}
-                                className="btn btn-sm space-x-2"><TrashIcon className="w-5"/> <span>Delete</span></div>
+                                    onClick={() => { setPasswordDataToBeShared(passwordInstance), setShareCredentialDialogBoxIsOpen(true) }}
+                                    className="btn btn-sm space-x-2"><ShareIcon className="w-5" /><span>Share</span></div>
                                 <div
-                                onClick={() => {
-                                    openDialogBox('password', passwordInstance)
-                                }}
-                                className="btn btn-sm space-x-2"><PencilSquareIcon className="w-5"/> <span>Edit</span></div>
+                                    onClick={() => {
+                                        if (confirm('Are you sure to delete this password instance?')) {
+                                            deletePassword(passwordInstance.uid)
+                                            toast.success('Password deleted successfully 🎉')
+                                        }
+                                    }}
+                                    className="btn btn-sm space-x-2"><TrashIcon className="w-5" /> <span>Delete</span></div>
+                                <div
+                                    onClick={() => {
+                                        openDialogBox('password', passwordInstance)
+                                    }}
+                                    className="btn btn-sm space-x-2"><PencilSquareIcon className="w-5" /> <span>Edit</span></div>
                             </div>
                         </div>
 
@@ -115,6 +121,13 @@ export const AllPasswords = (
                 )
             })}
 
+
+            <ShareCredentialDialogBox
+                isOpen={shareCredentialDialogBoxIsOpen}
+                setIsOpen={setShareCredentialDialogBoxIsOpen}
+                passwords={[passwordDataToBeShared]}
+                secureNotes={[]}
+            />
 
         </div>
     )

@@ -63,7 +63,7 @@ export const ImportVaultDialogBox = ({
                                     required
                                     className="block w-full text-sm text-gray-900 border border-gray-300 max-w-xs bg-base-100 cursor-pointer dark:text-gray-400 focus:outline-none"
                                     id="file_input"
-                                    accept=".db"
+                                    accept=".txt"
                                     onChange={(e) => setFileName(e.target.files?.[0] ?? null)}
                                     type="file" />
                             </label>
