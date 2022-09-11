@@ -16,7 +16,7 @@ export const MainOptionTile = (
     <div className={`card border border-gray-500 w-full bg-base-100 shadow-xl ${isActive ? 'bg-accent' : 'cursor-pointer'}`}>
         <div className="card-body flex justify-center items-center">
             {data.icon}
-            <h2 className="card-title">{data.name}</h2>
+            <h2 className="card-title font-bold">{data.name}</h2>
         </div>
     </div>
 )

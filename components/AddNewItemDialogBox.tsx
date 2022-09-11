@@ -5,7 +5,7 @@ import { PasswordInstance, SecureNoteInstance } from './AllPasswords'
 const fields = {
     'password': [
         {
-            label: 'Site Url',
+            label: 'Site URL',
             type: 'url',
             fieldId: 'siteUrl',
             placeholder: "https://github.com/"

@@ -11,7 +11,7 @@ import { MainOptionTile } from "./MainOptionTile"
 
 export const WithTokenScreen = () => {
     const [currentActive, setCurrentActive] = useState(0)
-    const [isDialogOpen, setIsDialogOpen] = useState(true)
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
     const [currentNewItemInstance, setCurrentNewItemInstance] = useState<'password' | 'secure-note'>('password')
     const [currentInitialDataToCreateNewItemInstance, setCurrentInitialDataToCreateNewItemInstance] = useState<{} | SecureNoteInstance | PasswordInstance>({})
 

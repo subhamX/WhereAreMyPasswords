@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+* {
+    @apply font-sans;
+}
+
+
+.btn{
+    @apply font-mono;
+}

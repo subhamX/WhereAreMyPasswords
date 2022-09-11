@@ -82,9 +82,9 @@ export const AllSecureNotes = (
                                 <div className="btn btn-sm space-x-2"><ShareIcon className="w-5" /><span>Share</span></div>
                                 <div
                                     onClick={() => {
-                                        if (confirm('Are you sure to delete this password instance?')) {
+                                        if (confirm('Are you sure to delete this secure note instance?')) {
                                             deleteSecureNote(secureNoteInstance.uid)
-                                            toast.success('Password deleted successfully 🎉')
+                                            toast.success('Secure note instance deleted successfully 🎉')
                                         }
                                     }}
                                     className="btn btn-sm space-x-2"><TrashIcon className="w-5" /> <span>Delete</span></div>
