@@ -19,7 +19,7 @@ const fields = {
         },
         {
             label: 'Password',
-            type: "password",
+            type: "text",
             fieldId: 'password',
             placeholder: "**********"
         },
@@ -57,27 +57,29 @@ export function AddNewItemDialogBox({
     isOpen: boolean,
     setIsOpen: Dispatch<boolean>,
     handleNewItemCreation: (data: any) => void,
-    initialData: Record<string,string>
+    initialData: Record<string, string>
 }) {
-    const [data, setData] = useState<Record<string,string>>({})
+    const [data, setData] = useState<Record<string, string>>({})
 
     useEffect(() => {
         setData(initialData)
     }, [initialData])
 
 
-    const isEditMode=Object.keys(initialData).length>0;
+    const isEditMode = Object.keys(initialData).length > 0;
 
     return (
+
         <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
             <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 
             <div className='fixed inset-0 flex items-center justify-center p-4'>
 
                 <Dialog.Panel className='w-full max-w-lg bg-gray-50 px-6 py-10'>
-                    <Dialog.Title className='text-2xl mb-5 font-extrabold'>{isEditMode? 'Edit': 'Add a new'} {newItemAddInstanceType === 'password' ? 'password' : 'secure note'}!</Dialog.Title>
-                    <Dialog.Description>
-                        <form onSubmit={(e) => {e.preventDefault(), handleNewItemCreation(data)}}>
+                    <Dialog.Title className='text-2xl mb-5 font-extrabold'>{isEditMode ? 'Edit' : 'Add a new'} {newItemAddInstanceType === 'password' ? 'password' : 'secure note'}!</Dialog.Title>
+                    <Dialog.Description as='div'>
+                        <form onSubmit={(e) => { e.preventDefault(), handleNewItemCreation(data) }}>
+
                             {fields[newItemAddInstanceType].map((field, index) => (
                                 <label key={index}>
                                     <div className="label text-sm font-bold">
@@ -86,14 +88,14 @@ export function AddNewItemDialogBox({
                                     {field.type === 'textarea' ?
                                         (<textarea
                                             required
-                                            value={data?.[field.fieldId]??""}
+                                            value={data?.[field.fieldId] ?? ""}
                                             onChange={(e) => setData({ ...data, [field.fieldId]: e.target.value })}
                                             placeholder={field.placeholder}
                                             className="input min-h-[200px] input-sm input-bordered w-full max-w-xs" />)
                                         :
                                         (<input
                                             required
-                                            value={data?.[field.fieldId]??""}
+                                            value={data?.[field.fieldId] ?? ""}
                                             onChange={(e) => setData({ ...data, [field.fieldId]: e.target.value })}
                                             type={field.type} placeholder={field.placeholder}
                                             className="input input-sm input-bordered w-full max-w-xs" />)
@@ -104,13 +106,15 @@ export function AddNewItemDialogBox({
 
                             <div className="flex justify-end gap-4 mt-5">
                                 <button type='submit' className='btn'>Securely add</button>
-                                <button type='submit' className='btn btn-outline' onClick={() => setIsOpen(false)}>Cancel</button>
+                                <button type='button' className='btn btn-outline' onClick={() => setIsOpen(false)}>Cancel</button>
                             </div>
                         </form>
+
                     </Dialog.Description>
                 </Dialog.Panel>
             </div>
 
         </Dialog>
+
     )
 }

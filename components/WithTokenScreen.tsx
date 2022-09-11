@@ -6,12 +6,15 @@ import { AddNewItemDialogBox } from "./AddNewItemDialogBox"
 import { PasswordIcon } from "./icons/PasswordIcon"
 import { SecureNoteIcon } from "./icons/SecureNoteIcon"
 import { MainOptionTile } from "./MainOptionTile"
+import { ExportVaultDialogBox } from "./ExportVaultDialogBox"
 
 
 
 export const WithTokenScreen = () => {
     const [currentActive, setCurrentActive] = useState(0)
     const [isDialogOpen, setIsDialogOpen] = useState(false)
+    const [isExportVaultDialogOpen, setIsExportVaultDialogOpen] = useState(false)
+
     const [currentNewItemInstance, setCurrentNewItemInstance] = useState<'password' | 'secure-note'>('password')
     const [currentInitialDataToCreateNewItemInstance, setCurrentInitialDataToCreateNewItemInstance] = useState<{} | SecureNoteInstance | PasswordInstance>({})
 
@@ -39,7 +42,7 @@ export const WithTokenScreen = () => {
                 siteUrl: data.siteUrl,
                 usernameOrEmail: data.usernameOrEmail
             }
-            if (Object.keys(currentInitialDataToCreateNewItemInstance).length!==0) {
+            if (Object.keys(currentInitialDataToCreateNewItemInstance).length !== 0) {
                 // edit mode
                 editPassword(payload)
             } else {
@@ -47,13 +50,13 @@ export const WithTokenScreen = () => {
                 addPassword(payload)
             }
         } else {
-            const payload={
+            const payload = {
                 uid: data.uid ?? (Math.random() * 1000).toString(),
                 lastUpdated: new Date().toISOString(),
                 content: data.content,
                 title: data.title
             }
-            if (Object.keys(currentInitialDataToCreateNewItemInstance).length!==0) {
+            if (Object.keys(currentInitialDataToCreateNewItemInstance).length !== 0) {
                 // edit mode
                 editSecureNote(payload)
             } else {
@@ -85,7 +88,10 @@ export const WithTokenScreen = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
                         </label>
                         <ul tabIndex={0} className="dropdown-content font-bold text-sm menu p-2 shadow bg-gray-50 rounded-box w-52">
-                            <li><a>Export Vault</a></li>
+                            {/* enter a passphrase for encrypt the export */}
+                            {/* load everything, and dump */}
+                            {/* .whereIsMyPasswordDB */}
+                            <li onClick={() => setIsExportVaultDialogOpen(true)}><a>Export Vault</a></li>
                             <li><a>Import Vault</a></li>
                         </ul>
                     </div>
@@ -95,10 +101,7 @@ export const WithTokenScreen = () => {
 
 
 
-                    {/* enter a passphrase for encrypt the export */}
-                    {/* load everything, and dump */}
-                    {/* .whereIsMyPasswordDB */}
-                    {/* <button className="btn font-black text-lg btn-primary m-1">Export Vault</button> */}
+
 
                     {/* select a file */}
                     {/* enter the passphrase */}
@@ -153,6 +156,11 @@ export const WithTokenScreen = () => {
                 newItemAddInstanceType={currentNewItemInstance}
                 setIsOpen={setIsDialogOpen}
                 handleNewItemCreation={handleNewItemCreation}
+            />
+
+            <ExportVaultDialogBox
+                isOpen={isExportVaultDialogOpen}
+                setIsOpen={setIsExportVaultDialogOpen}
             />
 
         </>
