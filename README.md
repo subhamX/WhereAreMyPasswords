@@ -1,34 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🤔 WhereAreMyPasswords?
 
-## Getting Started
+## Inspiration
+We all visit hundreds of websites in a day. The purpose varies from leisure activities like chatting with our friends, and watching some short videos, to serious activities like logging into the online bank website. But it leads you to memorize tonnes of passwords! And it's becoming increasingly challenging to manage them.
 
-First, run the development server:
+There are many password managers out there, but all require you to install many **OS-related dependencies**, or they are **cloud-based products**. And seriously, we shouldn't put critical credentials like bank passwords, Credit Card pins etc. in there. There are many instances where these online password managers got hacked!
 
-```bash
-npm run dev
-# or
-yarn dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## What it does
+Introducing **🤔 WhereAreMyPasswords?**!
+It's a 100% offline browser-based progressive web app to store your passwords and secure notes.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Although online password managers aren't very safe, an offline password manager can help keep our passwords safe, secure, and offer outstanding convenience. Now we don't need to worry about the security of password managers as it always stays on our machine. 
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Modern password managers are overcomplicated. We aim to make a simple, secure, and user-friendly password manager that is accessible to everyone.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+We've built this app on top of the most used loved application (i.e. browser 👻). It's offline, secure, blazing fast, and provides top-of-the-line security with local password and login saves.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## How we built it
+Our aim is offline first, so we used the most loved frontend framework Nextjs to build a progressive web app. 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Our app uses state-of-the-art [AES encryption](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) to store the passwords encrypted in the browser. It's near to impossible to crack the cypher with a strong key!
 
-## Deploy on Vercel
+We tried to make the app as convenient as possible for the user. One of the ways we did this was by integrating an email client powered by Twilio. This way, the user can easily share credentials with anyone with just one click. Please note that encryption is done on the browser and then sent to our servers. It ensures that the credentials never get stolen! 
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Sometimes you would want to take a manual backup of the vault. That's very easy, and with a few clicks, you can create one. You can also import a vault easily. While importing, we’re using an intelligent merge algorithm to remove duplicate entries, so you don't need to manually do it! Another way in which this app provides a sublime experience.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Please note that we currently only support encrypted backups for your safety!
+
+
+## What's next for WhereAreMyPasswords
+We plan to use WebRTC to perform peer-to-peer on-demand sync between vaults in different machines. Since the data remains in-network only for a small duration and is always in an encrypted format, the chances of any malicious actor gaining access to it are very low. It will very much improve the user experience.
